@@ -37,7 +37,8 @@ router.get('/buscar', verifyJWT, userController.findAll);
 router.post('/cadastroUsuario', userController.create);
 router.post('/login', userController.findById);
 router.post('/logout', userController.logout);
-router.get('/buscarDadosUsuario', verifyJWT, userController.buscarDadosUsuario);
+router.post('/buscarDadosUsuario', verifyJWT, userController.buscarDadosUsuario);
+router.post('/editarDadosUsuario', verifyJWT, userController.editarDadosUsuario);
 // Retrieve a single employee with id
 //router.get('/:id', userController.findById);
 // Update a employee with id

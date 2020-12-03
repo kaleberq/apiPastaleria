@@ -1,12 +1,12 @@
 'use strict';
 //https://dev.to/uddeshjain/authentication-with-google-in-nodejs-1op5
-const User     = require('../models/user.model');
-const Token    = require('../models/token.model')
+//const User     = require('../models/user.model');
+//const Token    = require('../models/token.model')
 const jwt      = require('jsonwebtoken');
 const secret   = 'kjw4589d5f4g2d6';
 
 
-exports.findAll = function(req, res) {
+/* exports.findAll = function(req, res) {
   console.log(req.userId + 'fez esta chamada!')
   User.findAll(function(err, user) {
         console.log('controller')
@@ -15,8 +15,8 @@ exports.findAll = function(req, res) {
         console.log('res', user);
         res.send(user);
     });
-};
-exports.create = function(req, res) {
+}; */
+/* exports.create = function(req, res) {
     const new_use = new User(req.body);
     console.log('corpo', new_use);
     if(req.body.constructor === Object && Object.keys(req.body).length === 0){
@@ -43,9 +43,10 @@ exports.create = function(req, res) {
         }
       }); 
     } 
-};
-exports.findById = function(req, res) {
-  const userBody = new User(req.body);
+}; */
+exports.buscarEnderecoUsuario = function(req, res) {
+    res.json('teste endereco')
+  /* const userBody = new User(req.body);
   console.log('userBody', userBody.email);
   
   User.findById(userBody.email, function(err, resp) {
@@ -63,9 +64,9 @@ exports.findById = function(req, res) {
       } 
       //res.json(resp[0].senha);
     }
-  }); 
+  });  */
 };
-exports.logout = (req, res) => {
+/* exports.logout = (req, res) => {
   const new_black_list = new Token(req.body);
     console.log('corpo', new_black_list);
     if(req.body.constructor === Object && Object.keys(req.body).length === 0){
@@ -79,8 +80,8 @@ exports.logout = (req, res) => {
         }     
       });
     }
-}
-exports.buscarDadosUsuario = function(req, res) {
+} */
+/* exports.buscarDadosUsuario = function(req, res) {
   const userBody = new User(req.body);
   console.log('userBody', userBody.email);
   
@@ -111,22 +112,4 @@ exports.editarDadosUsuario = function(req, res) {
     }); 
   
 };
-/*
-exports.update = function(req, res) {
-  if(req.body.constructor === Object && Object.keys(req.body).length === 0){
-    res.status(400).send({ error:true, message: 'Please provide all required field' });
-  }else{
-    Employee.update(req.params.id, new Employee(req.body), function(err, employee) {
-   if (err)
-   res.send(err);
-   res.json({ error:false, message: 'Employee successfully updated' });
-});
-}
-};
-exports.delete = function(req, res) {
-Employee.delete( req.params.id, function(err, employee) {
-  if (err)
-  res.send(err);
-  res.json({ error:false, message: 'Employee successfully deleted' });
-}); 
-};*/
+ */
