@@ -28,7 +28,7 @@ exports.create = function(req, res) {
           res.send(err);
         }
         else{
-          if(resp.length == 0){
+          if(!resp){
             User.create(new_use, function(err, resposta) {
               if(resposta){
                 res.json({auth:true,message:"Usuário cadastrado com sucesso!"}); 
@@ -53,13 +53,14 @@ exports.findById = function(req, res) {
       res.send(err);
     }
     else{
-      if(resp.length == 0){
+      if(!resp){
         res.json({ auth:false, message: 'Esse email não existe'});
       }else if(resp.senha != userBody.senha){
         res.json({ auth:false, message: 'Senha incorreta' });
       }else{
         const token = jwt.sign({userId: resp.email}, secret, {expiresIn: 4000})
-        res.json({ auth:true, token: token });
+        res.json({ auth:true, token: token, tipo: resp.tipo});
+        console.log('resposta login',resp);
       } 
       //res.json(resp[0].senha);
     }
@@ -92,6 +93,7 @@ exports.buscarDadosUsuario = function(req, res) {
       if(resp.length == 0){
         res.json({ auth:false, message: 'Esse cadastro não existe'});
       }else{
+        
         res.json({ auth:true, resp: resp });
       } 
       //res.json(resp[0].senha);
