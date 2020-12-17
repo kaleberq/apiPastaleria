@@ -14,7 +14,6 @@ function verifyJWT(req, res, next){
         }
         else{
             if(resp !== 0){
-                console.log('esse token não existe'),
                 jwt.verify(token, secret, (err, decoded) => {
                     if(err){
                         res.status(401).end();

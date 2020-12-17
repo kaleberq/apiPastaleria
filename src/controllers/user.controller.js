@@ -46,7 +46,6 @@ exports.create = function(req, res) {
 };
 exports.findById = function(req, res) {
   const userBody = new User(req.body);
-  console.log('userBody', userBody.email);
   
   User.findById(userBody.email, function(err, resp) {
     if (err){
@@ -83,7 +82,6 @@ exports.logout = (req, res) => {
 }
 exports.buscarDadosUsuario = function(req, res) {
   const userBody = new User(req.body);
-  console.log('userBody', userBody.email);
   
   User.findById(userBody.email, function(err, resp) {
     if (err){

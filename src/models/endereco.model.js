@@ -8,6 +8,7 @@ var Endereco = function(endereco){
     this.complemento = endereco.complemento;
     this.cep         = endereco.cep;
     this.cidade      = endereco.cidade;
+    this.bairro      = endereco.bairro;
 };
 Endereco.findById = function (id, result) {
   dbConn.query("Select * from ENDERECO where email = ? ", id, function (err, res) {
@@ -41,4 +42,15 @@ Endereco.editarEnderecoUsuario = function (data, result) {
     }
   })
 };
+Endereco.excluirEnderecoEnderecoUsuario = function(id, result){
+  dbConn.query("DELETE FROM ENDERECO WHERE email = ?", [id], function (err, res) {
+  if(err) {
+    console.log("error: ", err);
+    result(null, err);
+  }
+  else{
+    result(null, res);
+  }
+  });
+}; 
 module.exports= Endereco;

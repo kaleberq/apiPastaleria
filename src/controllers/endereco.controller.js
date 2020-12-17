@@ -8,7 +8,6 @@ const secret   = 'kjw4589d5f4g2d6';
 
 exports.buscarEnderecoUsuario = function(req, res) {
   const enderecoBody = new Endereco(req.body);
-  console.log('enderecoBody', enderecoBody.email);
   
   Endereco.findById(enderecoBody.email, function(err, resp) {
     if (err){
@@ -18,7 +17,7 @@ exports.buscarEnderecoUsuario = function(req, res) {
       if(resp){
         res.json({ auth:true, resp:resp });
       }else{
-        res.json({ auth:false, message: 'Não há endereços cadastrados'});
+        res.json({ auth:false, message: 'Não há endereço cadastrado'});
       } 
     }
   });  
@@ -49,4 +48,15 @@ exports.editarEnderecoUsuario = function(req, res) {
     }
   }); 
   
+};
+exports.excluirEnderecoEnderecoUsuario = function(req, res) {
+  const enderecoBody = new Endereco(req.body);
+  Endereco.excluirEnderecoEnderecoUsuario( enderecoBody.email, function(err, resp) {
+    if (err){
+      res.json({ auth:false, message: err });
+    }
+    else{
+      res.json({auth:true,message:"Endereço excluido com sucesso!"}); 
+    }
+  }); 
 };
