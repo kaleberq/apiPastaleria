@@ -61,30 +61,8 @@ exports.findById = function(req, res) {
         res.json({ auth:true, token: token, tipo: resp.tipo});
         console.log('resposta login',resp);
       } 
-      //res.json(resp[0].senha);
     }
   }); 
-};
-exports.verificaEmailAuth0 = function(email) {
-  //console.log('caiu aquiii', req);
-  /* const userBody = new User(req.body);
-  
-  User.findById(userBody.email, function(err, resp) {
-    if (err){
-      res.send(err);
-    }
-    else{
-      if(!resp){
-        res.json({ auth:false, message: 'Esse email não existe'});
-      }else if(resp.senha != userBody.senha){
-        res.json({ auth:false, message: 'Senha incorreta' });
-      }else{
-        const token = jwt.sign({userId: resp.email}, secret, {expiresIn: 4000})
-        res.json({ auth:true, token: token, tipo: resp.tipo});
-        console.log('resposta login',resp);
-      } 
-    } 
-  }); */
 };
 exports.logout = (req, res) => {
   const new_black_list = new Token(req.body);
@@ -115,7 +93,6 @@ exports.buscarDadosUsuario = function(req, res) {
         
         res.json({ auth:true, resp: resp });
       } 
-      //res.json(resp[0].senha);
     }
   }); 
 };
@@ -169,22 +146,19 @@ exports.verificaEmail = function(req, res) {
     }
   }); 
 };
-/*
-exports.update = function(req, res) {
-  if(req.body.constructor === Object && Object.keys(req.body).length === 0){
-    res.status(400).send({ error:true, message: 'Please provide all required field' });
-  }else{
-    Employee.update(req.params.id, new Employee(req.body), function(err, employee) {
-   if (err)
-   res.send(err);
-   res.json({ error:false, message: 'Employee successfully updated' });
-});
-}
-};
-exports.delete = function(req, res) {
-Employee.delete( req.params.id, function(err, employee) {
-  if (err)
-  res.send(err);
-  res.json({ error:false, message: 'Employee successfully deleted' });
-}); 
-};*/
+exports.findByIdGoogle = function(req, res) {
+  const userBody = new User(req.body);
+  User.findById(userBody.email, function(err, resp) {
+    if (err){
+      res.send(err);
+    }
+    else{
+      if(!resp){
+        res.json({ auth:false, message: 'Esse email não existe no nosso sistema!'});
+      }else{
+        const token = jwt.sign({userId: resp.email}, secret, {expiresIn: 4000})
+        res.json({ auth:true, token: token, tipo: resp.tipo});
+      } 
+    }
+  })
+}; 

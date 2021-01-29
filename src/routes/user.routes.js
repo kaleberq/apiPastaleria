@@ -75,15 +75,10 @@ router.get('/buscar', verifyJWT, userController.findAll);
 // Create a new employee
 router.post('/cadastroUsuario', userController.create);
 router.post('/login', userController.findById);
+router.post('/loginGoogle', userController.findByIdGoogle);
 router.post('/logout', userController.logout);
 router.post('/buscarDadosUsuario', verifyJWT, userController.buscarDadosUsuario);
 router.post('/editarDadosUsuario', verifyJWT, userController.editarDadosUsuario);
-router.post('/editarDadosUsuario', userController.verificaEmailAuth0);
 router.post('/verificaEmail', userController.verificaEmail);
-// Retrieve a single employee with id
-//router.get('/:id', userController.findById);
-// Update a employee with id
-//router.put('/:id', userController.update);
-// Delete a employee with id
-//router.delete('/:id', userController.delete);
+
 module.exports = router
