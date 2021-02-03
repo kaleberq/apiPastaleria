@@ -2,11 +2,13 @@
 var dbConn = require('./../../config/db.config');
 //Employee object create
 var Salgado = function(salgado){
-    this.nome    = salgado.nome;
-    this.sabor   = salgado.sabor;
-    this.tamanho = salgado.tamanho;
-    this.tipo    = salgado.tipo;
-    this.preco    = salgado.preco;
+    this.id               = salgado.id;
+    this.nome             = salgado.nome;
+    this.sabor            = salgado.sabor;
+    this.tamanho          = salgado.tamanho;
+    this.tipo             = salgado.tipo;
+    this.preco            = salgado.preco;
+    this.disponibilidade = salgado.disponibilidade;
 };
 
 Salgado.inserirSalgado = function (salgado, result) {
@@ -26,7 +28,6 @@ Salgado.inserirSalgado = function (salgado, result) {
         }
       });
 };
-
 Salgado.listarSalgado = function (result) {
     dbConn.query("Select * from SALGADO", function (err, res) {
       if(err) {
@@ -37,5 +38,35 @@ Salgado.listarSalgado = function (result) {
       }
     });
 };
-
+Salgado.excluirSalgado = function(id, result){
+  dbConn.query("DELETE FROM SALGADO WHERE id = ?", [id], function (err, res) {
+  if(err) {
+    console.log("error: ", err);
+    result(null, err);
+  }
+  else{
+    result(null, res);
+  }
+  });
+}; 
+Salgado.buscarSalgado = function(id, result){
+  dbConn.query("SELECT * FROM SALGADO WHERE id = ?", [id], function (err, res) {
+  if(err) {
+    console.log("error: ", err);
+    result(null, err);
+  }
+  else{
+    result(null, res[0]);
+  }
+  });
+}; 
+Salgado.editarSalgado = function (data, result) {
+  dbConn.query("UPDATE SALGADO SET nome=?,sabor=?,tamanho=?,tipo=?,preco=?,disponibilidade=? WHERE id = ?", [data.nome, data.sabor, data.tamanho, data.tipo, data.preco, data.disponibilidade, data.id], function (err, res) {
+    if(err) {
+      result(null, err);
+    }else{
+      result(null, res);
+    }
+  })
+};
 module.exports= Salgado;

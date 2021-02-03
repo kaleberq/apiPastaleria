@@ -31,3 +31,42 @@ exports.listarSalgado = (req, res) => {
     }
   });
 } 
+exports.excluirSalgado = (req, res) => {
+  const salgadoBody = new Salgado(req.body);
+  Salgado.excluirSalgado( salgadoBody.id, function(err, resp) {
+    if (err){
+      res.json({ auth:false, message: err });
+    }
+    else{
+      res.json({auth:true,message:"Salgado excluido com sucesso!"}); 
+    }
+  }); 
+} 
+exports.buscarSalgado = function(req, res) {
+  const salgadoBody = new Salgado(req.body);
+  
+  Salgado.buscarSalgado(salgadoBody.id, function(err, resp) {
+    if (err){
+      res.send(err);
+    }
+    else{
+      if(resp){
+        res.json({ auth:true, resp:resp });
+      }else{
+        res.json({ auth:false, message: 'Não há salgado'});
+      } 
+    }
+  });  
+};
+exports.editarSalgado = function(req, res) {
+  const salgadoBody = new Salgado(req.body);
+
+  Salgado.editarSalgado(salgadoBody, function(err, resp) {
+    if (err){
+      res.json({ auth:false, message: err });
+    }
+    else{
+      res.json({auth:true,message:"Salgado editado com sucesso!"}); 
+    }
+  });  
+};
