@@ -17,7 +17,7 @@ exports.buscarEnderecoUsuario = function(req, res) {
       if(resp){
         res.json({ auth:true, resp:resp });
       }else{
-        res.json({ auth:false, message: 'Não há endereço cadastrado'});
+        res.json({ auth:false, message: 'Não há endereço cadastrado, Cadastre um endereço para que possamos entregalo em sua residencia!'});
       } 
     }
   });  
@@ -47,7 +47,6 @@ exports.editarEnderecoUsuario = function(req, res) {
       res.json({auth:true,message:"Endereço editado com sucesso!"}); 
     }
   }); 
-  
 };
 exports.excluirEnderecoEnderecoUsuario = function(req, res) {
   const enderecoBody = new Endereco(req.body);
