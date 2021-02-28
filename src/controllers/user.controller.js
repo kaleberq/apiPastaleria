@@ -45,6 +45,7 @@ exports.create = function(req, res) {
     } 
 };
 exports.findById = function(req, res) {
+  console.log('caindo varias vezesss');
   const userBody = new User(req.body);
   
   User.findById(userBody.email, function(err, resp) {
@@ -148,6 +149,7 @@ exports.verificaEmail = function(req, res) {
 };
 exports.findByIdGoogle = function(req, res) {
   const userBody = new User(req.body);
+  console.log('cai aquii', req.body);
   User.findById(userBody.email, function(err, resp) {
     if (err){
       res.send(err);
@@ -157,7 +159,7 @@ exports.findByIdGoogle = function(req, res) {
         res.json({ auth:false, message: 'Esse email não existe no nosso sistema!'});
       }else{
         const token = jwt.sign({userId: resp.email}, secret, {expiresIn: 4000})
-        res.json({ auth:true, token: token, tipo: resp.tipo});
+        res.json({ auth:true, token: token, email: userBody.email, tipo: resp.tipo});
       } 
     }
   })

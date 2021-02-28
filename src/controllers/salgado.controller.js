@@ -70,3 +70,14 @@ exports.editarSalgado = function(req, res) {
     }
   });  
 };
+exports.listarSalgadoCliente = (req, res) => {
+  Salgado.listarSalgadoCliente(function(err, resp) {
+    if(resp.length == 0){
+      res.send({auth:true, message:'Não há salgados cadastrados'});
+    }else if(err){
+      res.send({auth:false, message:'Erro ao listar os salgados'});
+    }else{
+      res.send({auth:true, resp: resp});
+    }
+  });
+}

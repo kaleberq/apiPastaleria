@@ -69,4 +69,14 @@ Salgado.editarSalgado = function (data, result) {
     }
   })
 };
+Salgado.listarSalgadoCliente = function (result) {
+  dbConn.query("Select * from SALGADO WHERE DISPONIBILIDADE = 1", function (err, res) {
+    if(err) {
+      result(null, err);
+    }
+    else{
+      result(null, res);
+    }
+  });
+};
 module.exports= Salgado;

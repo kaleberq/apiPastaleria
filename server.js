@@ -60,11 +60,17 @@ app.use(cors(corsOptions))
 const userRoutes =     require('./src/routes/user.routes')
 const enderecoRoutes = require('./src/routes/endereco.routes')
 const salgadoRoutes =   require('./src/routes/salgado.routes')
+const formaPagamentoRoutes =   require('./src/routes/formaPagamento.routes')
+const encomendaInformacaoRoutes =   require('./src/routes/encomendaInformacao.routes')
+const formaEntregaRoutes =   require('./src/routes/formaEntrega.routes')
 
 // configurando a rota
 app.use('/api/v1/user', userRoutes)
 app.use('/api/v1/endereco', verifyJWT, enderecoRoutes)
 app.use('/api/v1/salgado', verifyJWT, salgadoRoutes)
+app.use('/api/v1/formaPagamento', verifyJWT, formaPagamentoRoutes)
+app.use('/api/v1/formaEntrega', verifyJWT, formaEntregaRoutes)
+app.use('/api/v1/encomendaInformacao', verifyJWT, encomendaInformacaoRoutes)
 
 // For an actual app you should configure this with an experation time, better keys, proxy and secure
 /* app.use(cookieSession({
