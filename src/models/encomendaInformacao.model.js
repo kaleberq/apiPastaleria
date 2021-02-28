@@ -32,6 +32,7 @@ EncomendaInformacao.inserirEncomendaInformacao = function (encomendaInformacao, 
       }
   });    
 };
+/* log */
 EncomendaInformacao.buscarEncomendaInformacaoSituacao = function (body, result) {
   if(body.email){
     console.log('andamento cliente', body.encomendaAndamento);
