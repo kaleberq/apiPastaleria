@@ -114,3 +114,15 @@ exports.updateAndamentoEncomenda = function(req, res) {
     }
   }); 
 };
+exports.buscarEncomendaInformacaoRelatorio = function(req, res) {
+  const encomendaBody = new EncomendaInformacao(req.body);
+
+  EncomendaInformacao.buscarEncomendaInformacaoRelatorio(encomendaBody, function(err, resp) {
+    if (err){
+      res.send(err);
+    }
+    else{
+      res.json({ auth:true, resp:resp });
+    }
+  });  
+};

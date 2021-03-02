@@ -6,6 +6,7 @@ router.post('/buscarEncomendaInformacaoSituacao', encomendaInformacaoController.
 router.post('/inserirEncomendaInformacao', encomendaInformacaoController.inserirEncomendaInformacao);
 router.post('/buscarSalgadosEncomenda', encomendaInformacaoController.buscarSalgadosEncomenda);
 router.post('/updateAndamentoEncomenda', encomendaInformacaoController.updateAndamentoEncomenda);
+router.post('/buscarEncomendaInformacaoRelatorio', encomendaInformacaoController.buscarEncomendaInformacaoRelatorio);
 /* router.post('/editarEndereco', enderecoController.editarEnderecoUsuario);
 router.post('/excluirEndereco', enderecoController.excluirEnderecoEnderecoUsuario); */
 
