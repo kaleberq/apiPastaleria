@@ -18,7 +18,6 @@ Token.createBlackList = function (newEmp, result) {
       }
   });
 };
-
 Token.findToken = function (id, result) {
   dbConn.query("Select blackList from TOKEN where blackList = ? ", id, function (err, res) {
     if(err) {

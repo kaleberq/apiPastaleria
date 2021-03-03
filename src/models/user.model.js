@@ -25,13 +25,13 @@ User.create = function (newEmp, result) {
 };
 User.findById = function (id, result) {
   dbConn.query("Select * from USER where email = ? ", id, function (err, res) {
-  if(err) {
-    console.log("error: ", err);
-    result(err, null);
-  }
-  else{
-    result(null, res);
-  }
+    if(err) {
+      console.log("error: ", err);
+      result(null, err);
+    }
+    else{
+      result(null, res[0]);
+    }
   });
 }; 
  
@@ -46,6 +46,26 @@ User.findAll = function (result) {
             result(null, res);
         }
     });
+};
+User.editarDadosUsuario = function (data, result) {
+  console.log('chegou aqui', data.email);
+  if(data.senha == ''){
+    dbConn.query("UPDATE USER SET primeiro_nome=?,sobrenome=?,celular=?,telefone=? WHERE email = ?", [data.primeiro_nome, data.sobrenome, data.celular, data.telefone, data.email], function (err, res) {
+      if(err) {
+        result(null, err);
+      }else{
+        result(null, res);
+      }
+    })
+  }else {
+    dbConn.query("UPDATE USER SET primeiro_nome=?,sobrenome=?,celular=?,telefone=?,senha=? WHERE email = ?", [data.primeiro_nome, data.sobrenome, data.celular, data.telefone, data.senha, data.email], function (err, res) {
+      if(err) {
+        result(null, err);
+      }else{
+        result(null, res);
+      }
+    })
+  }
 };
 /* Employee.update = function(id, employee, result){
 dbConn.query("UPDATE employees SET first_name=?,last_name=?,email=?,phone=?,organization=?,designation=?,salary=? WHERE id = ?", [employee.first_name,employee.last_name,employee.email,employee.phone,employee.organization,employee.designation,employee.salary, id], function (err, res) {

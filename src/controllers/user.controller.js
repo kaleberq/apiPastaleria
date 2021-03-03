@@ -4,7 +4,7 @@ const User     = require('../models/user.model');
 const Token    = require('../models/token.model')
 const jwt      = require('jsonwebtoken');
 const secret   = 'kjw4589d5f4g2d6';
-
+const nodemailer = require('nodemailer');
 
 exports.findAll = function(req, res) {
   console.log(req.userId + 'fez esta chamada!')
@@ -28,7 +28,7 @@ exports.create = function(req, res) {
           res.send(err);
         }
         else{
-          if(resp.length == 0){
+          if(!resp){
             User.create(new_use, function(err, resposta) {
               if(resposta){
                 res.json({auth:true,message:"Usuário cadastrado com sucesso!"}); 
@@ -45,23 +45,23 @@ exports.create = function(req, res) {
     } 
 };
 exports.findById = function(req, res) {
+  console.log('caindo varias vezesss');
   const userBody = new User(req.body);
-  console.log('userBody', userBody.email);
   
   User.findById(userBody.email, function(err, resp) {
     if (err){
       res.send(err);
     }
     else{
-      if(resp.length == 0){
+      if(!resp){
         res.json({ auth:false, message: 'Esse email não existe'});
-      }else if(resp[0].senha != userBody.senha){
+      }else if(resp.senha != userBody.senha){
         res.json({ auth:false, message: 'Senha incorreta' });
       }else{
-        const token = jwt.sign({userId: resp[0].email}, secret, {expiresIn: 300})
-        res.json({ auth:true, token: token });
+        const token = jwt.sign({userId: resp.email}, secret, {expiresIn: 4000})
+        res.json({ auth:true, token: token, tipo: resp.tipo});
+        console.log('resposta login',resp);
       } 
-      //res.json(resp[0].senha);
     }
   }); 
 };
@@ -82,7 +82,6 @@ exports.logout = (req, res) => {
 }
 exports.buscarDadosUsuario = function(req, res) {
   const userBody = new User(req.body);
-  console.log('userBody', userBody.email);
   
   User.findById(userBody.email, function(err, resp) {
     if (err){
@@ -92,28 +91,76 @@ exports.buscarDadosUsuario = function(req, res) {
       if(resp.length == 0){
         res.json({ auth:false, message: 'Esse cadastro não existe'});
       }else{
+        
         res.json({ auth:true, resp: resp });
       } 
-      //res.json(resp[0].senha);
     }
   }); 
 };
-/*
-exports.update = function(req, res) {
-  if(req.body.constructor === Object && Object.keys(req.body).length === 0){
-    res.status(400).send({ error:true, message: 'Please provide all required field' });
-  }else{
-    Employee.update(req.params.id, new Employee(req.body), function(err, employee) {
-   if (err)
-   res.send(err);
-   res.json({ error:false, message: 'Employee successfully updated' });
-});
-}
+exports.editarDadosUsuario = function(req, res) {
+  const new_use = new User(req.body);
+
+    User.editarDadosUsuario(new_use, function(err, resp) {
+      if (err){
+        res.json({ auth:false, message: err });
+      }
+      else{
+        res.json({auth:true,message:"Usuário editado com sucesso!"}); 
+      }
+    }); 
+  
 };
-exports.delete = function(req, res) {
-Employee.delete( req.params.id, function(err, employee) {
-  if (err)
-  res.send(err);
-  res.json({ error:false, message: 'Employee successfully deleted' });
-}); 
-};*/
+exports.verificaEmail = function(req, res) {
+  const userBody = new User(req.body);
+  
+  User.findById(userBody.email, function(err, resp) {
+    if (err){
+      res.send(err);
+    }
+    else{
+      if(!resp){
+        res.json({ auth:false, message: 'Esse email não existe no sistema'}); 
+      }else{
+        var transporter = nodemailer.createTransport({
+          service: 'gmail',
+          auth: {
+            user: 'salgadosNunes123@gmail.com',
+            pass: 'salgadosNunes132'
+          }
+        });
+        
+        var mailOptions = {
+          from: 'salgadosNunes123@gmail.com',
+          to: userBody.email,
+          subject: 'Sua senha é',
+          text: resp.senha
+        };
+        
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            res.json({ auth:true, message: 'Enviamos um email para você, verifique sua caixa de entrada'}); 
+          }
+        });
+      }
+    }
+  }); 
+};
+exports.findByIdGoogle = function(req, res) {
+  const userBody = new User(req.body);
+  console.log('cai aquii', req.body);
+  User.findById(userBody.email, function(err, resp) {
+    if (err){
+      res.send(err);
+    }
+    else{
+      if(!resp){
+        res.json({ auth:false, message: 'Esse email não existe no nosso sistema!'});
+      }else{
+        const token = jwt.sign({userId: resp.email}, secret, {expiresIn: 4000})
+        res.json({ auth:true, token: token, email: userBody.email, tipo: resp.tipo});
+      } 
+    }
+  })
+}; 
