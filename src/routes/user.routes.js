@@ -38,10 +38,5 @@ router.post('/cadastroUsuario', userController.create);
 router.post('/login', userController.findById);
 router.post('/logout', userController.logout);
 router.get('/buscarDadosUsuario', verifyJWT, userController.buscarDadosUsuario);
-// Retrieve a single employee with id
-//router.get('/:id', userController.findById);
-// Update a employee with id
-//router.put('/:id', userController.update);
-// Delete a employee with id
-//router.delete('/:id', userController.delete);
+
 module.exports = router
