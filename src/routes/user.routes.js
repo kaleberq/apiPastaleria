@@ -4,9 +4,7 @@ const userController =   require('../controllers/user.controller');
 const secret   = 'kjw4589d5f4g2d6';
 const jwt      = require('jsonwebtoken');
 const Token    = require('../models/token.model');
-/* const app = express();
-const passport = require('passport');
-const cookieSession = require('cookie-session'); */
+
 require('../../passport-setup');
 
 
