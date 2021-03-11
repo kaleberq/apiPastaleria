@@ -16,7 +16,7 @@ var EncomendaInformacao = function(encomendaInformacao){
 };
 
 EncomendaInformacao.inserirEncomendaInformacao = function (encomendaInformacao, result) {
-  dbConn.query("INSERT INTO encomendaInformacao SET" + ` formaEntrega= `+ encomendaInformacao.formaEntrega +`,valorTotal= `+ encomendaInformacao.valorTotal+ `,email='`+ encomendaInformacao.email+ `',formaPagamento=`+encomendaInformacao.formaPagamento+`,dataEncomenda=sysdate()`+`,dataEncomendaMesAno=sysdate()`+`,encomendaAndamento=`+ 0, function (err, res) {
+  dbConn.query("INSERT INTO encomendaInformacao SET" + ` formaEntrega= `+ encomendaInformacao.formaEntrega +`,valorTotal= `+ encomendaInformacao.valorTotal+ `,email='`+ encomendaInformacao.email+ `',formaPagamento=`+encomendaInformacao.formaPagamento+`,dataEncomenda=sysdate()`+`,dataEncomendaMesAno=sysdate()`+`,encomendaAndamento=`+ 0,undefined, function (err, res) {
       if(err) {
           result(err, null);
       }
@@ -24,7 +24,7 @@ EncomendaInformacao.inserirEncomendaInformacao = function (encomendaInformacao, 
         let i;
         for (i = 0; i < encomendaInformacao.salgadoPedidos.length; i++) {
           
-          dbConn.query("INSERT INTO pedido SET"+` id=`+encomendaInformacao.salgadoPedidos[i].salgado+`,quantidade=`+encomendaInformacao.salgadoPedidos[i].quantidade +`,idEncomenda=`+ res.insertId, function (err, res) {
+          dbConn.query("INSERT INTO pedido SET"+` id=`+encomendaInformacao.salgadoPedidos[i].salgado+`,quantidade=`+encomendaInformacao.salgadoPedidos[i].quantidade +`,idEncomenda=`+ res.insertId, undefined, function (err, res) {
             if(err) {
               result(err, null);
             }
@@ -48,7 +48,7 @@ EncomendaInformacao.buscarEncomendaInformacaoSituacao = function (body, result) 
       }
     });
   }else{
-    dbConn.query("Select ei.*, DATE_FORMAT(ei.dataEncomenda,'%d/%m/%Y %H:%i:%s') as dataEncomenda, primeiro_nome, telefone, celular from encomendaInformacao ei INNER JOIN user u ON ei.email = u.email where encomendaAndamento = ? and dataEntrega IS NULL", body.encomendaAndamento, function (err, res) {
+    dbConn.query("Select ei.*, DATE_FORMAT(ei.dataEncomenda,'%d/%m/%Y %H:%i:%s') as dataEncomenda, primeiro_nome, telefone, celular from encomendaInformacao ei INNER JOIN user u ON ei.email = u.email where encomendaAndamento = ? and dataEntrega IS NULL", [body.encomendaAndamento], function (err, res) {
       if(err) {
         result(null, err);
       }

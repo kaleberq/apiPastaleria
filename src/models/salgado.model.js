@@ -29,7 +29,7 @@ Salgado.inserirSalgado = function (salgado, result) {
       });
 };
 Salgado.listarSalgado = function (result) {
-    dbConn.query("Select * from SALGADO WHERE SITUACAO IS NULL", function (err, res) {
+    dbConn.query("Select * from SALGADO WHERE SITUACAO IS NULL", undefined, function (err, res) {
       if(err) {
         result(null, err);
       }
@@ -70,7 +70,7 @@ Salgado.editarSalgado = function (data, result) {
   })
 };
 Salgado.listarSalgadoCliente = function (result) {
-  dbConn.query("Select * from SALGADO WHERE DISPONIBILIDADE = 1 AND SITUACAO IS NULL", function (err, res) {
+  dbConn.query("Select * from SALGADO WHERE DISPONIBILIDADE = 1 AND SITUACAO IS NULL",undefined, function (err, res) {
     if(err) {
       result(null, err);
     }

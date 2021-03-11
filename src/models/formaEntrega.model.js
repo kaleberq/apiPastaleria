@@ -7,7 +7,7 @@ var FormaEntrega = function(formaPagamento){
 };
 
 FormaEntrega.listarFormaEntrega = function (result) {
-    dbConn.query("Select * from formaEntrega", function (err, res) {
+    dbConn.query("Select * from formaEntrega", undefined, function (err, res) {
       if(err) {
         result(null, err);
       }

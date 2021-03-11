@@ -7,7 +7,7 @@ var FormaPagamento = function(formaPagamento){
 };
 
 FormaPagamento.listarFormaPagamento = function (result) {
-    dbConn.query("Select * from formaPagamento", function (err, res) {
+    dbConn.query("Select * from formaPagamento", undefined, function (err, res) {
       if(err) {
         result(null, err);
       }

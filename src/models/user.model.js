@@ -36,7 +36,7 @@ User.findById = function (id, result) {
 }; 
  
 User.findAll = function (result) {
-    dbConn.query("SELECT * FROM USER", function (err, res) {
+    dbConn.query("SELECT * FROM USER", undefined, function (err, res) {
         if(err) {
             console.log("error: ", err);
             result(null, err);
