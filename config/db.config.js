@@ -1,20 +1,13 @@
 'use strict';
 const mysql = require('mysql');
 //local mysql db connection
-/* const dbConn = mysql.createConnection({
+const dbConn = mysql.createConnection({
   host     : 'us-cdbr-east-03.cleardb.com',
   user     : 'ba85c24f87f37e',
   password : 'f76ac848',
   database : 'heroku_e1442059138caf3'
-}); */
-const pool = mysql.createPool({
-  host: 'us-cdbr-east-03.cleardb.com',
-  user: 'ba85c24f87f37e',
-  database: 'f76ac848',
-  password: 'heroku_e1442059138caf3'
 });
-
-pool.connect(function(res, err) {
+dbConn.connect(function(res, err) {
   if(res){
     console.log(res);
   }else{
