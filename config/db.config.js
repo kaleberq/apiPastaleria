@@ -7,8 +7,12 @@ const dbConn = mysql.createConnection({
   password : 'f76ac848',
   database : 'heroku_e1442059138caf3'
 });
-dbConn.connect(function(err) {
-  /* if (err) throw err; */
+dbConn.connect(function(res, err) {
+  if(res){
+    console.log(res);
+  }else{
+    console.log(err);
+  }
   console.log("Database Connected!");
 });
 module.exports = dbConn;
