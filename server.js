@@ -50,7 +50,7 @@ app.use(bodyParser.json())
 app.use(cors());
 
 var corsOptions = {
-  origin: 'http://localhost:4200',
+  origin: '*',
   optionsSuccessStatus: 200,
 }
 
